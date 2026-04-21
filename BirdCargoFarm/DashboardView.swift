@@ -265,6 +265,28 @@ struct DashboardStatCard: View {
     }
 }
 
+struct UnavailableView: View {
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack {
+                Color.black.ignoresSafeArea()
+                Image("ii_bg")
+                    .resizable().scaledToFill()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .ignoresSafeArea()
+                    .blur(radius: 2)
+                    .opacity(0.8)
+                
+                Image("ii_a_img")
+                    .resizable()
+                    .frame(width: 250, height: 220)
+            }
+        }
+        .ignoresSafeArea()
+    }
+}
+
+
 struct TransportPlanCard: View {
     let plan: TransportPlan
 

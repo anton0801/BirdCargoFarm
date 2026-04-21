@@ -9,7 +9,15 @@ struct BCUser: Codable, Identifiable {
     var createdAt: Date = Date()
 }
 
-// MARK: - Transport Plan
+
+enum NetworkError: Error {
+    case invalidURL
+    case requestFailed
+    case decodingFailed
+    case noData
+}
+
+
 struct TransportPlan: Codable, Identifiable {
     var id: String = UUID().uuidString
     var name: String
@@ -149,6 +157,79 @@ struct RouteStop: Codable, Identifiable {
         }
     }
 }
+
+struct AppModel {
+    var tracking: [String: String]
+    var navigation: [String: String]
+    var endpoint: String?
+    var mode: String?
+    var isFirstLaunch: Bool
+    var permission: PermissionModel
+    var metadata: [String: String]
+    var isLocked: Bool
+    
+    struct PermissionModel {
+        var isGranted: Bool
+        var isDenied: Bool
+        var lastAsked: Date?
+        
+        var canAsk: Bool {
+            guard !isGranted && !isDenied else { return false }
+            if let date = lastAsked {
+                return Date().timeIntervalSince(date) / 86400 >= 3
+            }
+            return true
+        }
+        
+        static var initial: PermissionModel {
+            PermissionModel(isGranted: false, isDenied: false, lastAsked: nil)
+        }
+    }
+    
+    func isOrganic() -> Bool {
+        tracking["af_status"] == "Organic"
+    }
+    
+    func hasTracking() -> Bool {
+        !tracking.isEmpty
+    }
+    
+    static var initial: AppModel {
+        AppModel(
+            tracking: [:],
+            navigation: [:],
+            endpoint: nil,
+            mode: nil,
+            isFirstLaunch: true,
+            permission: .initial,
+            metadata: [:],
+            isLocked: false
+        )
+    }
+}
+
+struct StoredModel {
+    var tracking: [String: String]
+    var navigation: [String: String]
+    var endpoint: String?
+    var mode: String?
+    var isFirstLaunch: Bool
+    var permission: PermissionData
+    
+    struct PermissionData {
+        var isGranted: Bool
+        var isDenied: Bool
+        var lastAsked: Date?
+    }
+}
+
+enum AppError: Error {
+    case validationFailed
+    case networkError
+    case timeout
+    case notFound
+}
+
 
 // MARK: - Condition Log
 struct ConditionLog: Codable, Identifiable {

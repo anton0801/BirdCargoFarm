@@ -8,11 +8,42 @@
 
 /* Begin PBXBuildFile section */
 		8FF91AB12F8EB274007F40B2 /* codemagic.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 8FF91AB02F8EB26F007F40B2 /* codemagic.yaml */; };
+		8FF91C622F910658007F40B2 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 8FF91C612F910658007F40B2 /* FirebaseMessaging */; };
+		8FF91C992F910698007F40B2 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 8FF91C982F910698007F40B2 /* PostgREST */; };
+		8FF91C9B2F910698007F40B2 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8FF91C9A2F910698007F40B2 /* Supabase */; };
+		8FF91C9E2F9106A6007F40B2 /* AppsFlyerLib in Frameworks */ = {isa = PBXBuildFile; productRef = 8FF91C9D2F9106A6007F40B2 /* AppsFlyerLib */; };
+		8FF91CAC2F911592007F40B2 /* CargoNotificationsBirdExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8FF91CA52F911592007F40B2 /* CargoNotificationsBirdExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8FF91CB42F9115B0007F40B2 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 8FF91CB32F9115B0007F40B2 /* FirebaseMessaging */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8FF91CAA2F911592007F40B2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F677B4F2F841D0B00BA1736 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8FF91CA42F911592007F40B2;
+			remoteInfo = CargoNotificationsBirdExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8FF91CB12F911592007F40B2 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8FF91CAC2F911592007F40B2 /* CargoNotificationsBirdExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8F677B572F841D0B00BA1736 /* BirdCargoFarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BirdCargoFarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FF91AB02F8EB26F007F40B2 /* codemagic.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = codemagic.yaml; sourceTree = "<group>"; };
+		8FF91CA52F911592007F40B2 /* CargoNotificationsBirdExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CargoNotificationsBirdExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -22,6 +53,13 @@
 				Info.plist,
 			);
 			target = 8F677B562F841D0B00BA1736 /* BirdCargoFarm */;
+		};
+		8FF91CB02F911592007F40B2 /* Exceptions for "CargoNotificationsBirdExtension" folder in "CargoNotificationsBirdExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8FF91CA42F911592007F40B2 /* CargoNotificationsBirdExtension */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -34,6 +72,14 @@
 			path = BirdCargoFarm;
 			sourceTree = "<group>";
 		};
+		8FF91CA62F911592007F40B2 /* CargoNotificationsBirdExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8FF91CB02F911592007F40B2 /* Exceptions for "CargoNotificationsBirdExtension" folder in "CargoNotificationsBirdExtension" target */,
+			);
+			path = CargoNotificationsBirdExtension;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +87,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FF91C992F910698007F40B2 /* PostgREST in Frameworks */,
+				8FF91C9E2F9106A6007F40B2 /* AppsFlyerLib in Frameworks */,
+				8FF91C622F910658007F40B2 /* FirebaseMessaging in Frameworks */,
+				8FF91C9B2F910698007F40B2 /* Supabase in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8FF91CA22F911592007F40B2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FF91CB42F9115B0007F40B2 /* FirebaseMessaging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +110,8 @@
 			children = (
 				8FF91AB02F8EB26F007F40B2 /* codemagic.yaml */,
 				8F677B592F841D0B00BA1736 /* BirdCargoFarm */,
+				8FF91CA62F911592007F40B2 /* CargoNotificationsBirdExtension */,
+				8FF91CB22F9115B0007F40B2 /* Frameworks */,
 				8F677B582F841D0B00BA1736 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,8 +120,16 @@
 			isa = PBXGroup;
 			children = (
 				8F677B572F841D0B00BA1736 /* BirdCargoFarm.app */,
+				8FF91CA52F911592007F40B2 /* CargoNotificationsBirdExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8FF91CB22F9115B0007F40B2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,20 +142,49 @@
 				8F677B532F841D0B00BA1736 /* Sources */,
 				8F677B542F841D0B00BA1736 /* Frameworks */,
 				8F677B552F841D0B00BA1736 /* Resources */,
+				8FF91CB12F911592007F40B2 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8FF91CAB2F911592007F40B2 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				8F677B592F841D0B00BA1736 /* BirdCargoFarm */,
 			);
 			name = BirdCargoFarm;
 			packageProductDependencies = (
+				8FF91C612F910658007F40B2 /* FirebaseMessaging */,
+				8FF91C982F910698007F40B2 /* PostgREST */,
+				8FF91C9A2F910698007F40B2 /* Supabase */,
+				8FF91C9D2F9106A6007F40B2 /* AppsFlyerLib */,
 			);
 			productName = BirdCargoFarm;
 			productReference = 8F677B572F841D0B00BA1736 /* BirdCargoFarm.app */;
 			productType = "com.apple.product-type.application";
+		};
+		8FF91CA42F911592007F40B2 /* CargoNotificationsBirdExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8FF91CAD2F911592007F40B2 /* Build configuration list for PBXNativeTarget "CargoNotificationsBirdExtension" */;
+			buildPhases = (
+				8FF91CA12F911592007F40B2 /* Sources */,
+				8FF91CA22F911592007F40B2 /* Frameworks */,
+				8FF91CA32F911592007F40B2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8FF91CA62F911592007F40B2 /* CargoNotificationsBirdExtension */,
+			);
+			name = CargoNotificationsBirdExtension;
+			packageProductDependencies = (
+				8FF91CB32F9115B0007F40B2 /* FirebaseMessaging */,
+			);
+			productName = CargoNotificationsBirdExtension;
+			productReference = 8FF91CA52F911592007F40B2 /* CargoNotificationsBirdExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -103,6 +200,9 @@
 						CreatedOnToolsVersion = 16.4;
 						LastSwiftMigration = 1640;
 					};
+					8FF91CA42F911592007F40B2 = {
+						CreatedOnToolsVersion = 16.4;
+					};
 				};
 			};
 			buildConfigurationList = 8F677B522F841D0B00BA1736 /* Build configuration list for PBXProject "BirdCargoFarm" */;
@@ -114,12 +214,18 @@
 			);
 			mainGroup = 8F677B4E2F841D0B00BA1736;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8FF91C602F910658007F40B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				8FF91C972F910698007F40B2 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				8FF91C9C2F9106A6007F40B2 /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8F677B582F841D0B00BA1736 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				8F677B562F841D0B00BA1736 /* BirdCargoFarm */,
+				8FF91CA42F911592007F40B2 /* CargoNotificationsBirdExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -133,6 +239,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8FF91CA32F911592007F40B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -143,7 +256,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8FF91CA12F911592007F40B2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8FF91CAB2F911592007F40B2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8FF91CA42F911592007F40B2 /* CargoNotificationsBirdExtension */;
+			targetProxy = 8FF91CAA2F911592007F40B2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		8F677B612F841D0D00BA1736 /* Debug */ = {
@@ -274,6 +402,7 @@
 				INFOPLIST_FILE = BirdCargoFarm/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Bird Cargo Farm";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Allow to use this feature in application.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "“Bird Cargo Farm may use limited technical information from your device to support transport planning features, monitor app reliability, and improve overall functionality. This data is used solely for internal system optimization and performance analysis. It is not used to track users across other apps or websites and is not shared with third parties for advertising purposes.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -288,7 +417,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.3;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.00.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bdcargfar.BirdCargoFarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -317,6 +446,7 @@
 				INFOPLIST_FILE = BirdCargoFarm/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Bird Cargo Farm";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Allow to use this feature in application.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "“Bird Cargo Farm may use limited technical information from your device to support transport planning features, monitor app reliability, and improve overall functionality. This data is used solely for internal system optimization and performance analysis. It is not used to track users across other apps or websites and is not shared with third parties for advertising purposes.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -331,7 +461,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.3;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.00.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bdcargfar.BirdCargoFarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -342,6 +472,67 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Release;
+		};
+		8FF91CAE2F911592007F40B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CargoNotificationsBirdExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CargoNotificationsBirdExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bdcargfar.BirdCargoFarm.CargoNotificationsBirdExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8FF91CAF2F911592007F40B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CargoNotificationsBirdExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CargoNotificationsBirdExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bdcargfar.BirdCargoFarm.CargoNotificationsBirdExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -366,7 +557,71 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		8FF91CAD2F911592007F40B2 /* Build configuration list for PBXNativeTarget "CargoNotificationsBirdExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8FF91CAE2F911592007F40B2 /* Debug */,
+				8FF91CAF2F911592007F40B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8FF91C602F910658007F40B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.12.0;
+			};
+		};
+		8FF91C972F910698007F40B2 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+		8FF91C9C2F9106A6007F40B2 /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppsFlyerSDK/AppsFlyerFramework";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.17.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8FF91C612F910658007F40B2 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8FF91C602F910658007F40B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		8FF91C982F910698007F40B2 /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8FF91C972F910698007F40B2 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = PostgREST;
+		};
+		8FF91C9A2F910698007F40B2 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8FF91C972F910698007F40B2 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+		8FF91C9D2F9106A6007F40B2 /* AppsFlyerLib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8FF91C9C2F9106A6007F40B2 /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */;
+			productName = AppsFlyerLib;
+		};
+		8FF91CB32F9115B0007F40B2 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8FF91C602F910658007F40B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8F677B4F2F841D0B00BA1736 /* Project object */;
 }

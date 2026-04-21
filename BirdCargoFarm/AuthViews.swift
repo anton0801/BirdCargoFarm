@@ -1,4 +1,6 @@
 import SwiftUI
+import Combine
+import Network
 
 // MARK: - Splash Screen
 struct SplashView: View {
@@ -6,82 +8,215 @@ struct SplashView: View {
     @State private var opacity: Double = 0
     @State private var truckOffset: CGFloat = -60
     @State private var birdOffset: CGFloat = 60
+    @StateObject private var viewModel: BirdCargoViewModel
+    @State private var networkMonitor = NWPathMonitor()
+    @State private var cancellables = Set<AnyCancellable>()
     @State private var subtitleOpacity: Double = 0
     @State private var waveScale: CGFloat = 0
-    let onFinish: () -> Void
-
+    
+    init() {
+        let storage = UserDefaultsStorageService()
+        let validation = SupabaseValidationService()
+        let network = HTTPNetworkService()
+        let notification = SystemNotificationService()
+        
+        let businessLogic = BirdCargoBusinessLogic(
+            storage: storage,
+            validation: validation,
+            network: network,
+            notification: notification
+        )
+        
+        _viewModel = StateObject(wrappedValue: BirdCargoViewModel(businessLogic: businessLogic))
+    }
+    
+    private func setupNetworkMonitoring() {
+        networkMonitor.pathUpdateHandler = { path in
+            Task { @MainActor in
+                viewModel.networkStatusChanged(path.status == .satisfied)
+            }
+        }
+        networkMonitor.start(queue: .global(qos: .background))
+    }
+    
     var body: some View {
-        ZStack {
-            LinearGradient(colors: [Color.bcGradientStart, Color.bcGradientEnd],
-                           startPoint: .topLeading, endPoint: .bottomTrailing)
+        NavigationView {
+            ZStack {
+                LinearGradient(colors: [Color.bcGradientStart, Color.bcGradientEnd],
+                               startPoint: .topLeading, endPoint: .bottomTrailing)
                 .ignoresSafeArea()
-
-            // Decorative circles
-            Circle()
-                .fill(Color.white.opacity(0.07))
-                .frame(width: 300, height: 300)
-                .offset(x: -100, y: -200)
-                .scaleEffect(waveScale)
-
-            Circle()
-                .fill(Color.white.opacity(0.05))
-                .frame(width: 200, height: 200)
-                .offset(x: 120, y: 250)
-                .scaleEffect(waveScale)
-
-            VStack(spacing: 24) {
-                // Logo
-                ZStack {
-                    Circle()
-                        .fill(Color.white.opacity(0.15))
-                        .frame(width: 120, height: 120)
-
-                    VStack(spacing: 0) {
-                        HStack(spacing: -8) {
-                            Image(systemName: "bird.fill")
-                                .font(.system(size: 36, weight: .bold))
-                                .foregroundColor(Color.bcAccent)
-                                .offset(x: birdOffset, y: -4)
-                                .opacity(opacity)
-
-                            Image(systemName: "truck.box.fill")
-                                .font(.system(size: 36, weight: .bold))
-                                .foregroundColor(.white)
-                                .offset(x: truckOffset)
-                                .opacity(opacity)
+                
+                GeometryReader { geometry in
+                    Image("loading_iimg")
+                        .resizable().scaledToFill()
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                        .ignoresSafeArea()
+                        .blur(radius: 5)
+                        .opacity(0.7)
+                }
+                .ignoresSafeArea()
+                
+                // Decorative circles
+                Circle()
+                    .fill(Color.white.opacity(0.07))
+                    .frame(width: 300, height: 300)
+                    .offset(x: -100, y: -200)
+                    .scaleEffect(waveScale)
+                
+                Circle()
+                    .fill(Color.white.opacity(0.05))
+                    .frame(width: 200, height: 200)
+                    .offset(x: 120, y: 250)
+                    .scaleEffect(waveScale)
+                
+                NavigationLink(
+                    destination: BirdCargoWebView().navigationBarHidden(true),
+                    isActive: $viewModel.navigateToWeb
+                ) { EmptyView() }
+                
+                NavigationLink(
+                    destination: RootView().navigationBarBackButtonHidden(true),
+                    isActive: $viewModel.navigateToMain
+                ) { EmptyView() }
+                
+                VStack(spacing: 24) {
+                    Spacer()
+                    // Logo
+                    ZStack {
+                        Circle()
+                            .fill(Color.white.opacity(0.15))
+                            .frame(width: 120, height: 120)
+                        
+                        VStack(spacing: 0) {
+                            HStack(spacing: -8) {
+                                Image(systemName: "truck.box.fill")
+                                    .font(.system(size: 36, weight: .bold))
+                                    .foregroundColor(.white)
+                                    .opacity(opacity)
+                            }
                         }
                     }
-                }
-                .scaleEffect(scale)
-
-                VStack(spacing: 8) {
-                    Text("Bird Cargo Farm")
-                        .font(.bcLargeTitle)
-                        .foregroundColor(.white)
-                        .opacity(opacity)
-
-                    Text("Transport poultry safely.")
+                    .scaleEffect(scale)
+                    
+                    VStack(spacing: 8) {
+                        Text("Bird Cargo Farm")
+                            .font(.bcLargeTitle)
+                            .foregroundColor(.white)
+                            .opacity(opacity)
+                        
+                        Text("Transport poultry safely.")
+                            .font(.bcCallout)
+                            .foregroundColor(.white.opacity(0.75))
+                            .opacity(subtitleOpacity)
+                    }
+                    
+                    Spacer()
+                    
+                    ProgressView()
+                        .tint(.white)
+                        .opacity(subtitleOpacity)
+                    
+                    Text("Loading app content...")
                         .font(.bcCallout)
                         .foregroundColor(.white.opacity(0.75))
                         .opacity(subtitleOpacity)
                 }
             }
+            .onAppear {
+                withAnimation(.spring(response: 0.7, dampingFraction: 0.6).delay(0.2)) {
+                    scale = 1.0
+                    opacity = 1
+                    truckOffset = 0
+                    birdOffset = 0
+                }
+                withAnimation(.easeIn(duration: 0.5).delay(0.8)) {
+                    subtitleOpacity = 1
+                    waveScale = 1
+                }
+                setupStreams()
+                setupNetworkMonitoring()
+                viewModel.initialize()
+            }
+            .fullScreenCover(isPresented: $viewModel.showPermissionPrompt) {
+                BirdCargoNotificationView(viewModel: viewModel)
+            }
+            .fullScreenCover(isPresented: $viewModel.showOfflineView) {
+                UnavailableView()
+            }
         }
-        .onAppear {
-            withAnimation(.spring(response: 0.7, dampingFraction: 0.6).delay(0.2)) {
-                scale = 1.0
-                opacity = 1
-                truckOffset = 0
-                birdOffset = 0
+        .navigationViewStyle(StackNavigationViewStyle())
+    }
+    
+    private func setupStreams() {
+        NotificationCenter.default.publisher(for: Notification.Name("ConversionDataReceived"))
+            .compactMap { $0.userInfo?["conversionData"] as? [String: Any] }
+            .sink { data in
+                viewModel.handleTracking(data)
             }
-            withAnimation(.easeIn(duration: 0.5).delay(0.8)) {
-                subtitleOpacity = 1
-                waveScale = 1
+            .store(in: &cancellables)
+        
+        NotificationCenter.default.publisher(for: Notification.Name("deeplink_values"))
+            .compactMap { $0.userInfo?["deeplinksData"] as? [String: Any] }
+            .sink { data in
+                viewModel.handleNavigation(data)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.8) {
-                onFinish()
+            .store(in: &cancellables)
+    }
+}
+
+struct BirdCargoNotificationView: View {
+    let viewModel: BirdCargoViewModel
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack {
+                Color.black.ignoresSafeArea()
+                
+                Image("cargo_farm_pp")
+                    .resizable().scaledToFill()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .ignoresSafeArea().opacity(0.9)
+                
+                VStack(spacing: 12) {
+                    Spacer()
+                    Text("ALLOW NOTIFICATIONS ABOUT BONUSES AND PROMOS")
+                        .font(.custom("BagelFatOne-Regular", size: 24))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 12)
+                        .multilineTextAlignment(.center)
+                    Text("STAY TUNED WITH BEST OFFERS FROM OUR CASINO")
+                        .font(.custom("BagelFatOne-Regular", size: 16))
+                        .foregroundColor(.white.opacity(0.7))
+                        .padding(.horizontal, 12)
+                        .multilineTextAlignment(.center)
+                    actionButtons
+                }
+                .padding(.bottom, 24)
             }
         }
+        .ignoresSafeArea()
+        .preferredColorScheme(.dark)
+    }
+    
+    private var actionButtons: some View {
+        VStack(spacing: 12) {
+            Button {
+                viewModel.requestPermission()
+            } label: {
+                Image("bb_img")
+                    .resizable()
+                    .frame(width: 300, height: 55)
+            }
+            
+            Button {
+                viewModel.deferPermission()
+            } label: {
+                Text("Skip")
+                    .font(.headline)
+                    .foregroundColor(.white.opacity(0.7))
+            }
+        }
+        .padding(.horizontal, 12)
     }
 }
 
